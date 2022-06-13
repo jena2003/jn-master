@@ -4,12 +4,13 @@ import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import fileUpload from 'express-fileupload';
 import path from "path"
-import cors from 'cors';
+//import cors from 'cors';
 import initConnection from './utils/dbconnectors';
 import UserController from './controllers/UserController';
 import AuthController from './controllers/AuthController';
 import AuthorController from './controllers/AuthorController';
 import DocumentController from './controllers/DocumentController';
+import cors from 'cors';
 class Server {
   private app;
   constructor() {
@@ -18,7 +19,14 @@ class Server {
   }
 
   private config() {
-    this.app.use(cors({origin:'https://192.168.1.6:8080/', credentials:true,}));
+    this.app.use(
+      cors({
+        origin: '*',
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        preflightContinue: false,
+        optionsSuccessStatus: 204,
+      }),
+    );
     this.app.use(helmet());
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(bodyParser.json({ limit: '1mb' }));
@@ -35,8 +43,10 @@ class Server {
     useExpressServer(this.app, {
       defaultErrorHandler: false,
       cors: {
-        origin: 'http://localhost:8080',
-        credentials: true, //access-control-allow-credentials:true
+        origin: '*',
+        methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+        preflightContinue: false,
+        optionsSuccessStatus: 204,
       },
       controllers: [UserController, AuthController, AuthorController, DocumentController],
     });

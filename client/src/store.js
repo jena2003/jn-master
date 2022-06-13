@@ -34,7 +34,9 @@ export default new Vuex.Store({
         position: "",
         academicDegree: ""
       },
-      jwt: ''
+      jwt: '',
+      fileUrl: "",
+      fileName: "",
     }
   },
   mutations: {

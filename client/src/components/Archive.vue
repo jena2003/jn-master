@@ -15,11 +15,11 @@
           <div class="archive__container">
             <span @click=" visible2022 = ! visible2022" class="container__title">2022</span>
             <div v-if=" visible2022" class="container">
-              <a class="container__href" href="#pdf">
+              <router-link class="container__href" to="/ReadingPdf">
                 <div @click="showPdf" class="container__item">
-              
+           {{this.name}}
                 </div>
-              </a>
+              </router-link>
               <a class="container__href" href="#pdf">
                 <div @click="showPdf" class="container__item">
                 № 2 (55)
@@ -256,16 +256,12 @@
           </div>
         </div>
     </div>
-   <a name="pdf" v-if="isShowPdf" class="reading-pdf">
-      <ReadingPdf />
-    </a> 
-    <Footer />
   </div>
 </template>
 
 <script>
-import Footer from './Footer.vue'
-import ReadingPdf from './ReadingPdf'
+//import Footer from './Footer.vue'
+//import ReadingPdf from './ReadingPdf'
 import axios from 'axios'
 //import {addDocument} from "@/api/documentAPI";
 //import store from '../store.js'
@@ -296,8 +292,7 @@ export default {
     }
   },
   components: {
-    Footer,
-    ReadingPdf
+
   },
   computed: {
       lang() {
@@ -305,13 +300,6 @@ export default {
       },
   },
   methods: {
-    showPdf() {
-      axios.get(`http://localhost:4000/documents/`).then((documentData)=>{
-     this.name=documentData.data
-      })
-      this.isShowPdf = true
-      
-    },
     submitFile(){
       let formData=new FormData()
       formData.append('name',this.name)
@@ -327,14 +315,20 @@ export default {
         .catch(function(){
           console.log('FAILURE!!');
         });
-    },
-    
-    handleFileUpload(){
+        console.log(localStorage.setItem("file"))
+    } ,   
+    handleFileUpload(event){
    //   this.name=this.$refs.name.names[0]
       this.file=this.$refs.file.files[0]
-      
-    },
-    
+      const reader = new FileReader()
+  reader.onload = (e) => {
+    const fileUrl = e.target.result
+ localStorage.setItem("file", fileUrl);
+  }
+reader.readAsDataURL(event.target.files[0])
+const fileName = event.target.result
+localStorage.setItem("name", fileName);
+  }
   }
 }
 </script>

@@ -5,7 +5,8 @@ import './fonts.css'
 import VueRouter from 'vue-router'
 import routes from './pages.js'
 import store from'./store'
-
+import pdf from './components/ReadingPdf.vue'
+Vue.use(pdf)
 console.log(routes);
 
 Vue.use(VueRouter)

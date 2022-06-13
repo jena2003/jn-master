@@ -7,7 +7,7 @@ import LogIn from './components/LogIn.vue'
 import SignUp from './components/SignUp.vue'
 import MyProfileScreen from './components/MyProfileScreen.vue'
 import EditProfileScreen from './components/EditProfileScreen'
-
+import ReadingPdf from './components/ReadingPdf'
 const routes = [
     { path: '/contacts', component: Contacts, props: true },
     { path: '/archive', component: Archive, props: true },
@@ -17,7 +17,8 @@ const routes = [
     { path: '/LogIn', component: LogIn, props: true },
     { path: '/SignUp', component: SignUp, props: true },
     { path: '/MyProfileScreen', component: MyProfileScreen, props: true },
-    { path: '/EditProfileScreen', component: EditProfileScreen, props: true }
+    { path: '/EditProfileScreen', component: EditProfileScreen, props: true },
+    { path: '/ReadingPdf', component: ReadingPdf, props: true }
   ]
 
  export default routes;
